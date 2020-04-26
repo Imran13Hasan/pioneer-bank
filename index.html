@@ -76,8 +76,9 @@
         //deposit button event handler...
         const depositBtn = document.getElementById("addDeposit");
         depositBtn.addEventListener("click", function(){
-            const depositAmount = document.getElementById("depositAmount").value; //that is .value cz this is a INPUT field...
-            const depositNumber = parseFloat(depositAmount); //This is for convert the value of string to number...
+            // const depositAmount = document.getElementById("depositAmount").value; //that is .value cz this is a INPUT field...
+            // const depositNumber = parseFloat(depositAmount); //This is for convert the value of string to number...
+            const depositNumber = getInputNumber("depositAmount");
 
             // const currentDeposit = document.getElementById("currentDeposit").innerText; //that is .innerText cz that is not INPUT field rather SPAN, H1, P, LI etc...
             // const currentDepositNumber = parseFloat(currentDeposit); //This is for convert the value of string to number...
@@ -96,31 +97,41 @@
         
         })
 
-        function updateSpanText(id, depositNumber){
-            const current = document.getElementById(id).innerText;
-            const currentNumber = parseFloat(current); 
-            const totalAmount = depositNumber + currentNumber;
-            document.getElementById(id).innerText = totalAmount;
-        }
-
         //withdraw button event handler...
         const withdrawBtn =document.getElementById("addWithdraw");
         withdrawBtn.addEventListener("click", function(){
-            const withdrawAmount = document.getElementById("withdrawAmount").value;
-            const withdrawNumber = parseFloat(withdrawAmount);
+            // const withdrawAmount = document.getElementById("withdrawAmount").value;
+            // const withdrawNumber = parseFloat(withdrawAmount);
+            const withdrawNumber = getInputNumber("withdrawAmount");
 
-            const currentWithdraw = document.getElementById("currentWithdraw").innerText;
-            const currentWithdrawNumber = parseFloat(currentWithdraw);
-            const totalWithdraw = withdrawNumber + currentWithdrawNumber;
-            document.getElementById("currentWithdraw").innerText = totalWithdraw;
+            updateSpanText("currentWithdraw", withdrawNumber);
+            updateSpanText("currentBalance", -1 * withdrawNumber); // -1* this is for (Minus/Reduce) amount on Balance...
 
-            const currentBalance = document.getElementById("currentBalance").innerText;
-            const currentBalanceNumber = parseFloat(currentBalance); 
-            const totalBalance = currentBalanceNumber - withdrawNumber;
-            document.getElementById("currentBalance").innerText = totalBalance;
+            // const currentWithdraw = document.getElementById("currentWithdraw").innerText;
+            // const currentWithdrawNumber = parseFloat(currentWithdraw);
+            // const totalWithdraw = withdrawNumber + currentWithdrawNumber;
+            // document.getElementById("currentWithdraw").innerText = totalWithdraw;
+
+            // const currentBalance = document.getElementById("currentBalance").innerText;
+            // const currentBalanceNumber = parseFloat(currentBalance); 
+            // const totalBalance = currentBalanceNumber - withdrawNumber;
+            // document.getElementById("currentBalance").innerText = totalBalance;
 
             document.getElementById("withdrawAmount").value = "";
         })
+
+        function getInputNumber(id){
+            const amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+
+        function updateSpanText(id, addedNumber){
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current); 
+            const totalAmount = addedNumber + currentNumber;
+            document.getElementById(id).innerText = totalAmount;
+        }
 
     </script>
 </body>
